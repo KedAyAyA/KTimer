@@ -1,0 +1,28 @@
+{
+  "name": "ktimeout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/rollup/bin/rollup -c",
+    "test": "./node_modules/mocha/bin/mocha --require babel-register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KedAyAyA/KTimeCount.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KedAyAyA/KTimeCount/issues"
+  },
+  "homepage": "https://github.com/KedAyAyA/KTimeCount#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "rollup": "^0.58.2"
+  }
+}
