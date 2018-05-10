@@ -1,8 +1,8 @@
 export default {
   input: 'src/index.js',
   output: {
-    file: 'dist/ktimecount.js',
+    file: 'dist/ktimer.js',
     format: 'umd',
-    name: 'KTimeCount'
+    name: 'KTimer'
   }
 }

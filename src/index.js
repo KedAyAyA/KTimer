@@ -1,71 +1,121 @@
-import { isObject } from './utils.js'
+import { isObject, cloneOptionsData } from './utils.js'
+import { defaultChangeDataFn } from './default.js'
 
-let timeCounts = Object.create(null)
+let KTimers = Object.create(null)
 
-export default function TimeCount (name, cb) {
-  if (!(this instanceof TimeCount)) {
-    return new TimeCount(name)
+/**
+ * 
+ * @param {string} name 
+ * @param {obj} options 
+ */
+export default function KTimer (name, options) {
+  if (typeof name !== 'string') {
+    throw new Error('name must be a string')
   }
-  if (timeCounts[name]) {
-    return timeCounts[name]
+  
+  if (!(this instanceof KTimer)) {
+    return new KTimer(name)
   }
+
+  if (KTimers[name]) {
+    return KTimers[name]
+  }
+
+  this.options = options || {}
+
   this.name = name
-  this.second = 0
+  this.data = cloneOptionsData(options.data)
+  this.cb = options.callback || ''
+  this.delay = options.delay || 1000
+  this.changeDataFn = (options.changeDataFn || defaultChangeDataFn).bind(this)
+  
   this.timeHandler = null
-  timeCounts[name] = this
-  this.cb = cb
+  KTimers[name] = this
 }
 
-TimeCount.getInstanceByName = function get (name) {
-  return timeCounts[name]
+/**
+ * 
+ * @param {str} name 
+ * @description
+ * static method
+ */
+KTimer.getInstanceByName = function get (name) {
+  return KTimers[name]
 }
 
-TimeCount.removeInstance = function remove (symbol) {
+/**
+ * 
+ * @param {String|Object} symbol 
+ * @description 
+ * static method
+ * remove KTimer in KTimers by symbol
+ * symbol with string refer to name
+ * symbol with object refer to instance
+ */
+KTimer.removeInstance = function remove (symbol) {
   if (isObject(symbol)) {
-    for (let key in timeCounts) {
-      if (timeCounts[key] === symbol) {
-        timeCounts[key] = null
+    for (let key in KTimers) {
+      if (KTimers[key] === symbol) {
+        KTimers[key] = null
         break
       }
     }
   } else {
-    timeCounts[symbol] = null
+    KTimers[symbol] = null
   }
 }
 
-TimeCount.prototype.start = function start (context) {
+/**
+ * 
+ * @param {anything} context
+ * @description
+ * optional callback's context. In some cases will be usable
+ *  
+ */
+KTimer.prototype.start = function start (context) {
   if (this.timeHandler) {
     clearTimeout(this.timeHandler)
     this.timeHandler = null
   }
   this.timeHandler = setTimeout(() => {
-    this.second++
-    this.cb.apply(context || null)
+    let temp = this.changeDataFn.call(null, this.data)
+    if (!isObject(this.data)) {
+      this.data = temp
+    }
+    
     this.start(context)
+    this.cb.apply(context || null)
   }, 1000)
   return this
 }
 
-TimeCount.prototype.setTime = function setTime (num) {
-  if (typeof num === 'number') {
-    this.second = num
-  }
+/**
+ * 
+ * @param {anything} data 
+ * @description
+ * set instance data
+ */
+KTimer.prototype.setData = function setTime (data) {
+  this.data = data
   return this
 }
 
-TimeCount.prototype.reset = function reset () {
-  this.setTime(0)
+KTimer.prototype.reset = function reset (context) {
+  this.setData(cloneOptionsData(this.options.data))
   clearTimeout(this.timeHandler)
-  this.cb()
-  this.start()
+  this.cb.apply(context || null)
   return this
 }
 
-TimeCount.prototype.getSecond = function getSecond () {
-  return this.second
+KTimer.prototype.getdata = function getdata () {
+  return this.data
 }
 
-TimeCount.prototype.stop = function stop () {
+/**
+ * @description
+ * stop the KTimer
+ */
+KTimer.prototype.stop = function stop () {
   clearTimeout(this.timeHandler)
   this.timeHandler = null
   return this
