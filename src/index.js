@@ -24,10 +24,10 @@ export default function KTimer (name, options) {
   this.options = options || {}
 
   this.name = name
-  this.data = cloneOptionsData(options.data)
-  this.cb = options.callback || ''
-  this.delay = options.delay || 1000
-  this.changeDataFn = (options.changeDataFn || defaultChangeDataFn).bind(this)
+  this.data = cloneOptionsData(this.options.data)
+  this.cb = this.options.callback || function () {}
+  this.delay = this.options.delay || 1000
+  this.changeDataFn = (this.options.changeDataFn || defaultChangeDataFn).bind(this)
   
   this.timeHandler = null
   KTimers[name] = this
@@ -82,10 +82,10 @@ KTimer.prototype.start = function start (context) {
     if (!isObject(this.data)) {
       this.data = temp
     }
-    
+
     this.start(context)
     this.cb.apply(context || null)
-  }, 1000)
+  }, this.delay)
   return this
 }
 
@@ -95,7 +95,7 @@ KTimer.prototype.start = function start (context) {
  * @description
  * set instance data
  */
-KTimer.prototype.setData = function setTime (data) {
+KTimer.prototype.setData = function setData (data) {
   this.data = data
   return this
 }
@@ -107,7 +107,7 @@ KTimer.prototype.reset = function reset (context) {
   return this
 }
 
-KTimer.prototype.getdata = function getdata () {
+KTimer.prototype.getData = function getdata () {
   return this.data
 }
 
