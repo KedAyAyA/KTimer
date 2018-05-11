@@ -1,3 +1,18 @@
 {
-  "presets": ["env"]
+  "env": {
+    "production": {
+      "presets": [
+        ["env", {
+          "modules": false
+        }],
+        "flow"
+      ]
+    },
+    "test": {
+      "presets": [
+        "flow",
+        "env"
+      ]
+    }
+  }
 }

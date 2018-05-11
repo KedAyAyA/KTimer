@@ -1,14 +1,16 @@
-export function isObject (obj) {
+// @flow
+
+export function isObject (obj: mixed): boolean {
   return obj !== null && typeof obj === 'object'
 }
 
-export function isPrimitive (data) {
+export function isPrimitive (data: mixed): boolean {
   return typeof data === 'number' 
           || typeof data === 'string' 
           || typeof data === 'boolean'
 }
 
-export function cloneOptionsData (data) {
+export function cloneOptionsData (data: any): any {
   if (isObject(data)) {
     return JSON.parse(JSON.stringify(data))
   }
