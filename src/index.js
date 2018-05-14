@@ -100,8 +100,8 @@ KTimer.prototype.setData = function setData (data) {
   return this
 }
 
-KTimer.prototype.reset = function reset (context) {
-  this.setData(cloneOptionsData(this.options.data))
+KTimer.prototype.reset = function reset (context, data) {
+  this.setData(cloneOptionsData(data || this.options.data))
   clearTimeout(this.timeHandler)
   this.cb.apply(context || null)
   return this
