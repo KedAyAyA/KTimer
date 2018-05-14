@@ -80,7 +80,7 @@ KTimer.prototype.start = function start (context) {
   this.timeHandler = setTimeout(() => {
     let temp = this.changeDataFn.call(null, this.data)
     if (!isObject(this.data)) {
-      this.data = temp
+      this.data = temp === undefined ? this.data : temp
     }
 
     this.start(context)
