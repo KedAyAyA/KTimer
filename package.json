@@ -1,12 +1,13 @@
 {
   "name": "ktimer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "An easy way to manage and make setTimeout recursion.",
+  "main": "dist/ktimer.js",
   "scripts": {
     "build": "npm run flow && cross-env NODE_ENV=production node_modules/rollup/bin/rollup -c",
     "test": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --require babel-register",
-    "flow": "./node_modules/flow-bin/cli.js"
+    "flow": "./node_modules/flow-bin/cli.js",
+    "publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
