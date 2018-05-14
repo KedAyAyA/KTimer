@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="./js/ktimer.js"></script>
+  <script src="./js/code2script.js"></script>
+  <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
+  <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script> 
   <title>Document</title>
+  <style>
+    code {
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
   <div>
     <h1>一般类计时</h1>
+    
     <div>
       <span id="time-1">0</span>
     </div>
@@ -18,34 +27,83 @@
       <button id="stop-1">停止</button>
       <button id="reset-1">重置</button>
     </div>
+
+    <pre>
+      <code class="code2script">
+    var ktimer1 = new KTimer('timer-1', {
+      callback: function () {
+        timer1text.textContent = ktimer1.getData()
+      },
+      changeDataFn: function (data) {
+        return data + 1
+      }
+    })
+  
+    var timer1start = document.querySelector('#start-1')
+    var timer1stop = document.querySelector('#stop-1')
+    var timer1reset = document.querySelector('#reset-1')
+    var timer1text = document.querySelector('#time-1')
+  
+    timer1start.addEventListener('click', function () {
+      ktimer1.start()
+    })
+  
+    timer1stop.addEventListener('click', function () {
+      ktimer1.stop()
+    })
+  
+    timer1reset.addEventListener('click', function () {
+      ktimer1.reset()
+    })
+      </code>
+    </pre>
+  </div>
+
+  <div>
+    <h1>精准计时</h1>
+    <h4>由于 js 单线程以及 EventLoop 和浏览器在非激活页会延缓setTimout的策略，导致计时会有误差，因此如果想准确与初始化时间有区别，需要用时间差来做计时 </h4>
+    <div>
+      <span id="time-2">0</span>
+    </div>
+    <div>
+      <button id="start-2">开始</button>
+      <button id="stop-2">停止</button>
+      <button id="reset-2">重置</button>
+    </div>
+
+    <pre>
+      <code class="code2script">
+    var ktimer2 = new KTimer('timer-2', {
+      data: Date.now(),
+      callback: function () {
+        let data = ktimer2.getData()
+        timer2text.textContent = Math.floor( (Date.now() - data) / 1000 )
+      }
+    })
+  
+    var timer2start = document.querySelector('#start-2')
+    var timer2stop = document.querySelector('#stop-2')
+    var timer2reset = document.querySelector('#reset-2')
+    var timer2text = document.querySelector('#time-2')
+  
+    timer2start.addEventListener('click', function () {
+      ktimer2.start()
+    })
+  
+    timer2stop.addEventListener('click', function () {
+      ktimer2.stop()
+    })
+  
+    timer2reset.addEventListener('click', function () {
+      ktimer2.reset(null, Date.now())
+    })
+      </code>
+    </pre>
   </div>
   
 </body>
 </html>
 <script>
-  var ktimer = new KTimer('timer-1', {
-    callback: function () {
-      ktimer.setData(ktimer.getData() + 1)
-      timer1text.textContent = ktimer.getData()
-      console.log(ktimer.getData())
-    }
-  })
-
-  var timer1start = document.querySelector('#start-1')
-  var timer1stop = document.querySelector('#stop-1')
-  var timer1reset = document.querySelector('#reset-1')
-  var timer1text = document.querySelector('#time-1')
-
-  timer1start.addEventListener('click', function () {
-    ktimer.start()
-  })
-
-  timer1stop.addEventListener('click', function () {
-    ktimer.stop()
-  })
-
-  timer1reset.addEventListener('click', function () {
-    ktimer.reset()
-  })
-
+  code2script('.code2script')
+  hljs.initHighlightingOnLoad()
 </script>

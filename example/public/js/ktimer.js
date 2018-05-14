@@ -111,7 +111,7 @@
     this.timeHandler = setTimeout(function () {
       var temp = _this.changeDataFn.call(null, _this.data);
       if (!isObject(_this.data)) {
-        _this.data = temp;
+        _this.data = temp === undefined ? _this.data : temp;
       }
 
       _this.start(context);
@@ -131,8 +131,8 @@
     return this;
   };
 
-  KTimer.prototype.reset = function reset(context) {
-    this.setData(cloneOptionsData(this.options.data));
+  KTimer.prototype.reset = function reset(context, data) {
+    this.setData(cloneOptionsData(data || this.options.data));
     clearTimeout(this.timeHandler);
     this.cb.apply(context || null);
     return this;

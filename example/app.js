@@ -4,9 +4,13 @@ const fs = require('fs')
 
 const app = express()
 
-console.log(path.resolve(__dirname, '../dist/ktimer.js'), path.resolve(__dirname, './public/js/ktimer.js'))
+console.log(path.resolve(__dirname, '../dist/ktimer.js'), '-->', path.resolve(__dirname, './public/js/ktimer.js'))
 
 fs.copyFileSync(path.resolve(__dirname, '../dist/ktimer.js'), path.resolve(__dirname, './public/js/ktimer.js'))
+
+// fs.unlinkSync(path.resolve(__dirname, '../dist/ktimer.js'))
+
+// console.log('remove: ', path.resolve(__dirname, '../dist/ktimer.js'))
 
 app.use(express.static(path.resolve(__dirname, './public')))
 
