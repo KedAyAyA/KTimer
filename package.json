@@ -7,7 +7,8 @@
     "build": "npm run flow && cross-env NODE_ENV=production node_modules/rollup/bin/rollup -c",
     "test": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --require babel-register",
     "flow": "./node_modules/flow-bin/cli.js",
-    "publish": "npm run build && npm publish"
+    "publish": "npm run build && npm publish",
+    "example": "npm run build && node example/app.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "cross-env": "^5.1.5",
+    "express": "^4.16.3",
     "flow-bin": "^0.72.0",
     "mocha": "^5.1.1",
     "rollup": "^0.58.2",

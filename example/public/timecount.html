@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./js/ktimer.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <h1>一般类计时</h1>
+    <div>
+      <span id="time-1">0</span>
+    </div>
+    <div>
+      <button id="start-1">开始</button>
+      <button id="stop-1">停止</button>
+      <button id="reset-1">重置</button>
+    </div>
+  </div>
+  
+</body>
+</html>
+<script>
+  var ktimer = new KTimer('timer-1', {
+    callback: function () {
+      ktimer.setData(ktimer.getData() + 1)
+      timer1text.textContent = ktimer.getData()
+      console.log(ktimer.getData())
+    }
+  })
+
+  var timer1start = document.querySelector('#start-1')
+  var timer1stop = document.querySelector('#stop-1')
+  var timer1reset = document.querySelector('#reset-1')
+  var timer1text = document.querySelector('#time-1')
+
+  timer1start.addEventListener('click', function () {
+    ktimer.start()
+  })
+
+  timer1stop.addEventListener('click', function () {
+    ktimer.stop()
+  })
+
+  timer1reset.addEventListener('click', function () {
+    ktimer.reset()
+  })
+
+</script>
