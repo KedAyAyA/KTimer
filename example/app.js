@@ -8,6 +8,9 @@ console.log(path.resolve(__dirname, '../dist/ktimer.js'), '-->', path.resolve(__
 
 fs.copyFileSync(path.resolve(__dirname, '../dist/ktimer.js'), path.resolve(__dirname, './public/js/ktimer.js'))
 
+console.log(path.resolve(__dirname, '../dist/ktimer.min.js'), '-->', path.resolve(__dirname, './public/js/ktimer.min.js'))
+
+fs.copyFileSync(path.resolve(__dirname, '../dist/ktimer.min.js'), path.resolve(__dirname, './public/js/ktimer.min.js'))
 // fs.unlinkSync(path.resolve(__dirname, '../dist/ktimer.js'))
 
 // console.log('remove: ', path.resolve(__dirname, '../dist/ktimer.js'))

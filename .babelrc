@@ -8,6 +8,14 @@
         "flow"
       ]
     },
+    "minify": {
+      "presets": [
+        ["env", {
+          "modules": false
+        }],
+        "flow"
+      ]
+    },
     "test": {
       "presets": [
         "flow",

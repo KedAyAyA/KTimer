@@ -30,6 +30,8 @@
     return data;
   }
 
+  var version = "0.0.2";
+
   var KTimers = Object.create(null);
 
   /**
@@ -37,30 +39,32 @@
    * @param {string} name 
    * @param {obj} options 
    */
-  function KTimer(name, options) {
-    if (typeof name !== 'string') {
+  function KTimer(name$$1, options) {
+    if (typeof name$$1 !== 'string') {
       throw new Error('name must be a string');
     }
 
     if (!(this instanceof KTimer)) {
-      return new KTimer(name);
+      return new KTimer(name$$1);
     }
 
-    if (KTimers[name]) {
-      return KTimers[name];
+    if (KTimers[name$$1]) {
+      return KTimers[name$$1];
     }
 
     this.options = options || {};
 
-    this.name = name;
+    this.name = name$$1;
     this.data = cloneOptionsData(this.options.data);
     this.cb = this.options.callback || function () {};
     this.delay = this.options.delay || 1000;
     this.changeDataFn = (this.options.changeDataFn || defaultChangeDataFn).bind(this);
 
     this.timeHandler = null;
-    KTimers[name] = this;
+    KTimers[name$$1] = this;
   }
+
+  KTimer.version = 'v' + version;
 
   /**
    * 
@@ -68,8 +72,8 @@
    * @description
    * static method
    */
-  KTimer.getInstanceByName = function get(name) {
-    return KTimers[name];
+  KTimer.getInstanceByName = function get(name$$1) {
+    return KTimers[name$$1];
   };
 
   /**

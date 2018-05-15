@@ -1,5 +1,6 @@
 import { isObject, cloneOptionsData } from './utils.js'
 import { defaultChangeDataFn } from './default.js'
+import { version } from '../package.json'
 
 let KTimers = Object.create(null)
 
@@ -32,6 +33,8 @@ export default function KTimer (name, options) {
   this.timeHandler = null
   KTimers[name] = this
 }
+
+KTimer.version = `v${version}`
 
 /**
  * 
