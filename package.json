@@ -1,6 +1,6 @@
 {
   "name": "ktimer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An easy way to manage and make setTimeout recursion.",
   "main": "dist/ktimer.js",
   "scripts": {
@@ -14,9 +14,9 @@
     "type": "git",
     "url": "git+https://github.com/KedAyAyA/KTimer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["timer", "setTimeout", "recursion"],
+  "author": "Kedaya",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/KedAyAyA/KTimer/issues"
   },
