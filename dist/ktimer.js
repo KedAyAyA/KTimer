@@ -30,7 +30,7 @@
     return data;
   }
 
-  var version = "0.0.2";
+  var version = "0.0.3";
 
   var KTimers = Object.create(null);
 
@@ -86,15 +86,21 @@
    * symbol with object refer to instance
    */
   KTimer.removeInstance = function remove(symbol) {
+    var name$$1 = null;
     if (isObject(symbol)) {
       for (var key in KTimers) {
         if (KTimers[key] === symbol) {
-          KTimers[key] = null;
+          // KTimers[key] = null
+          name$$1 = key;
           break;
         }
       }
     } else {
-      KTimers[symbol] = null;
+      name$$1 = symbol;
+    }
+    if (name$$1 !== null) {
+      KTimers[name$$1].stop();
+      KTimers[name$$1] = null;
     }
   };
 

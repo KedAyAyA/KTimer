@@ -56,15 +56,21 @@ KTimer.getInstanceByName = function get (name) {
  * symbol with object refer to instance
  */
 KTimer.removeInstance = function remove (symbol) {
+  let name = null
   if (isObject(symbol)) {
     for (let key in KTimers) {
       if (KTimers[key] === symbol) {
-        KTimers[key] = null
+        // KTimers[key] = null
+        name = key
         break
       }
     }
   } else {
-    KTimers[symbol] = null
+    name = symbol
+  }
+  if (name !== null) {
+    KTimers[name].stop()
+    KTimers[name] = null
   }
 }
 
